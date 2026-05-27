@@ -16,4 +16,6 @@ import lombok.experimental.FieldDefaults;
 public class ChatRequestDto {
     @NotBlank(message = "Message cannot be blank")
     String message;
+
+    Integer remainingTokens;
 }
