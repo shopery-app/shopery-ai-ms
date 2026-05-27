@@ -5,5 +5,5 @@ import az.shopery.ai_ms.dto.response.ChatResponseDto;
 import az.shopery.ai_ms.dto.shared.SuccessResponse;
 
 public interface ClaudeService {
-    SuccessResponse<ChatResponseDto> chat(String userEmail, ChatRequestDto chatRequestDto);
+    SuccessResponse<ChatResponseDto> chat(ChatRequestDto chatRequestDto);
 }
