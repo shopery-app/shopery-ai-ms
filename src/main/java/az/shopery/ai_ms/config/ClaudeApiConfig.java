@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "claude.api")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ConfigurationProperties(prefix = "claude.api")
 public class ClaudeApiConfig {
     String key;
     String url;

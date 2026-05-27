@@ -1,10 +1,13 @@
 package az.shopery.ai_ms.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
@@ -15,10 +18,13 @@ public class ClaudeResponseDto {
     String id;
     String type;
     String role;
-    List<Content> content;
     String model;
+
+    List<Content> content;
+
     @JsonProperty("stop_reason")
     String stopReason;
+
     Usage usage;
 
     @Data

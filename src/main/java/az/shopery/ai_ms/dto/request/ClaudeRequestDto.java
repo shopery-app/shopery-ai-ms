@@ -1,10 +1,13 @@
 package az.shopery.ai_ms.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.FieldDefaults;
 
 @Data
 @Builder
@@ -12,9 +15,12 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ClaudeRequestDto {
+
     String model;
+
     @JsonProperty("max_tokens")
     Integer maxTokens;
+
     List<Message> messages;
 
     @Data
@@ -26,5 +32,4 @@ public class ClaudeRequestDto {
         String role;
         String content;
     }
-
 }
