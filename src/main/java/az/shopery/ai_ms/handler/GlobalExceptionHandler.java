@@ -1,9 +1,7 @@
 package az.shopery.ai_ms.handler;
 
 import az.shopery.ai_ms.dto.shared.ErrorResponse;
-import az.shopery.ai_ms.handler.exception.ApplicationException;
 import az.shopery.ai_ms.handler.exception.ExternalServiceException;
-import az.shopery.ai_ms.handler.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -23,18 +21,6 @@ import tools.jackson.databind.exc.InvalidFormatException;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
-        log.debug("Resource not found: {}", ex.getMessage());
-        return buildErrorResponse(ex, HttpStatus.NOT_FOUND, request);
-    }
-
-    @ExceptionHandler(ApplicationException.class)
-    public ResponseEntity<ErrorResponse> handleBadRequest(Exception ex, HttpServletRequest request) {
-        log.debug("Bad request: {}", ex.getMessage());
-        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, request);
-    }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpServletRequest request) {

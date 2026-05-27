@@ -5,7 +5,6 @@ import az.shopery.ai_ms.dto.response.ChatResponseDto;
 import az.shopery.ai_ms.dto.shared.SuccessResponse;
 import az.shopery.ai_ms.service.ClaudeService;
 import jakarta.validation.Valid;
-import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +20,7 @@ public class ChatController {
     private final ClaudeService claudeService;
 
     @PostMapping
-    public ResponseEntity<SuccessResponse<ChatResponseDto>> chat(Principal principal, @Valid @RequestBody ChatRequestDto chatRequestDto) {
-        return ResponseEntity.ok(claudeService.chat(principal.getName(), chatRequestDto));
+    public ResponseEntity<SuccessResponse<ChatResponseDto>> chat(String email, @Valid @RequestBody ChatRequestDto chatRequestDto) {
+        return ResponseEntity.ok(claudeService.chat(email, chatRequestDto));
     }
 }

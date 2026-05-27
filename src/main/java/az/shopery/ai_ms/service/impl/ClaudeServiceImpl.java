@@ -7,12 +7,7 @@ import az.shopery.ai_ms.dto.response.ChatResponseDto;
 import az.shopery.ai_ms.dto.response.ClaudeResponseDto;
 import az.shopery.ai_ms.dto.shared.SuccessResponse;
 import az.shopery.ai_ms.handler.exception.ExternalServiceException;
-import az.shopery.ai_ms.handler.exception.ResourceNotFoundException;
 import az.shopery.ai_ms.service.ClaudeService;
-import az.shopery.repository.UserRepository;
-import az.shopery.utils.enums.SubscriptionTier;
-import az.shopery.utils.enums.UserRole;
-import az.shopery.utils.enums.UserStatus;
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +23,8 @@ public class ClaudeServiceImpl implements ClaudeService {
 
     private final ClaudeApiConfig config;
     private final WebClient webClient;
-    private final UserRepository userRepository;
 
-    public ClaudeServiceImpl(UserRepository userRepository, ClaudeApiConfig config) {
-        this.userRepository = userRepository;
+    public ClaudeServiceImpl(ClaudeApiConfig config) {
         this.config = config;
         this.webClient = WebClient.builder()
                 .baseUrl(config.getUrl())
@@ -45,9 +38,6 @@ public class ClaudeServiceImpl implements ClaudeService {
     public SuccessResponse<ChatResponseDto> chat(String userEmail, ChatRequestDto request) {
         log.info("Processing chat request from user: {}", userEmail);
 
-        userRepository.findByEmailAndUserRoleAndStatusAndSubscriptionTier(userEmail, UserRole.USER, UserStatus.ACTIVE, SubscriptionTier.PREMIUM)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-
         ClaudeRequestDto claudeRequest = ClaudeRequestDto.builder()
                 .model(config.getModel())
                 .maxTokens(config.getMaxTokens())
@@ -59,7 +49,7 @@ public class ClaudeServiceImpl implements ClaudeService {
                 ))
                 .build();
 
-        return SuccessResponse.of(callClaudeApi(claudeRequest), "Success");
+        return SuccessResponse.of(callClaudeApi(claudeRequest), "Message processed successfully!");
     }
 
     private ChatResponseDto callClaudeApi(ClaudeRequestDto request) {
@@ -75,7 +65,7 @@ public class ClaudeServiceImpl implements ClaudeService {
                     .block();
 
             if (Objects.isNull(response) || Objects.isNull(response.getContent()) || response.getContent().isEmpty()) {
-                throw new ExternalServiceException("Empty response from Claude API");
+                throw new ExternalServiceException("Empty response from Claude API!");
             }
 
             String messageContent = response.getContent().getFirst().getText();
@@ -90,7 +80,7 @@ public class ClaudeServiceImpl implements ClaudeService {
 
         } catch (Exception e) {
             log.error("Unexpected error during Claude API call", e);
-            throw new ExternalServiceException("An error occurred while processing your request");
+            throw new ExternalServiceException("An error occurred while processing your request!");
         }
     }
 }
