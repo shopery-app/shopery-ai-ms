@@ -14,6 +14,5 @@ public class ClaudeApiConfig {
     String key;
     String url;
     String model;
-    Integer maxTokens;
     String version;
 }

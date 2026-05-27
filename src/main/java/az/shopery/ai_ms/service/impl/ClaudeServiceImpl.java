@@ -27,7 +27,7 @@ public class ClaudeServiceImpl implements ClaudeService {
     public SuccessResponse<ChatResponseDto> chat(ChatRequestDto request) {
         ClaudeRequestDto claudeRequest = ClaudeRequestDto.builder()
                 .model(config.getModel())
-                .maxTokens(config.getMaxTokens())
+                .maxTokens(request.getRemainingTokens())
                 .messages(List.of(
                         ClaudeRequestDto.Message.builder()
                                 .role("user")
