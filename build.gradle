@@ -1,3 +1,7 @@
+buildscript {
+	apply from: 'versions.gradle'
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.1.1'
@@ -9,7 +13,7 @@ version = '1.0.0'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(26)
+		languageVersion = JavaLanguageVersion.of(27)
 	}
 }
 
@@ -24,20 +28,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springframework.ai:spring-ai-starter-model-anthropic'
 
-	compileOnly 'org.projectlombok:lombok'
+	compileOnly "org.projectlombok:lombok:${v.lombok}"
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor "org.projectlombok:lombok:${v.lombok}"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 
-	testCompileOnly 'org.projectlombok:lombok'
+	testCompileOnly "org.projectlombok:lombok:${v.lombok}"
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-	testAnnotationProcessor 'org.projectlombok:lombok'
+	testAnnotationProcessor "org.projectlombok:lombok:${v.lombok}"
 }
 
 tasks.named('test') {
